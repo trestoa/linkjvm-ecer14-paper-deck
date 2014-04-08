@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<title>LinkJVM - Java on the KIPR Link</title>
+
+		<meta name="description" content="Java on the KIPR Link">
+		<meta name="author" content="Markus Klein">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+		<link rel="stylesheet" href="css/prism.css">
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section class="dark" data-background="radial-gradient(rgba(85,90,95,1), rgba(28,30,32,1))">
+					<h1>LinkJVM 2.0</h1>
+					<h3>Java on the KIPR Link</h3>
+					<p>
+						<small><a href="https://mklein.co.at">Markus Klein</a>  /  <object data="img/octocat.svg" type="image/svg+xml" width="30" heigth="30"></object> kleiinnn</small>
+					</p>
+				</section>
+				<section>
+					<h2>What is LinkJVM</h2>
+					<ul>
+						<li>Java Runtime Enironment(JamVM)</li>
+						<li>Java compiler and other tools(javac, jar, ...)</li>
+						<li>Library for controlling the robot with Java</li>
+					</ul>
+					<p>
+						You can execute any JVM language(Scala, JavaScript(Rhino), ...) with LinkJVM.
+					</p>
+				</section>
+				<section>
+					<h2>Design Approach</h2>
+					<img src="img/design_approach.svg" height="600">	
+				</section>
+				<section>
+					<h2>Design Approach - Example</h2>
+					<img src="img/design_approach_example.svg" width="1000">
+				</section>
+				<section class="dark" data-background="radial-gradient(rgba(85,90,95,1), rgba(28,30,32,1))">
+					<h1>{The End}</h1>
+					<h2>Made with &lt;3</h2>
+					<p>Contact: <a href="mailto:m@mklein.co.at">m@mklein.co.at</a></p>	
+					<span><small>&copy; 2014, Markus Klein &copy; 2014, LinkJVM</small></span>
+				</section>
+			</div>
+		</div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+		<script src="js/prism.js"></script>
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				history: true,
+				center: true,
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+	</body>
+</html>
+
