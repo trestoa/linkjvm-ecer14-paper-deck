@@ -124,7 +124,24 @@
 					</ul>
 				</section>
 				<section>
-					<h3>C++ wrapper</h3>		
+					<h2>Wrapper Example</h2>
+					<h4>SWIG Interface</h4>
+					<pre><code class="language-java">
+							%module linkjvm_battery
+							%{
+							    #include "include/kovan/battery.hpp"
+							%}
+
+							class  Battery{
+								public:
+							        static bool isCharging();
+							        static float powerLevel();
+							};
+					</code></pre>
+				</section>
+				<section>
+					<h2>Wrapper Example</h2>
+					<h4>C++ Part</h4>
 					<pre><code class="language-c++">
 							SWIGEXPORT jboolean JNICALL Java_linkjvm_low_linkjvm_1batteryJNI_Battery_1isCharging(JNIEnv *jenv, jclass jcls) {
 							  jboolean jresult = 0 ;
@@ -137,6 +154,18 @@
 							  return jresult;
 							}
 					</code></pre>
+					<h4>Java Part</h4>
+					<pre><code class="language-java">
+							package linkjvm.low;
+
+							public class linkjvm_batteryJNI {
+							  public final static native boolean Battery_isCharging();
+							  public final static native float Battery_powerLevel();
+							  public final static native long new_Battery();
+							  public final static native void delete_Battery(long jarg1);
+							} 
+					</code></pre>
+					
 				</section>			
 				<section>
 					<h2>Design Approach</h2>
