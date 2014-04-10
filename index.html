@@ -33,8 +33,29 @@
 					<h1>LinkJVM 2.0</h1>
 					<h3>Java on the KIPR Link</h3>
 					<p>
-						<small><a href="https://mklein.co.at">Markus Klein</a>  /  <object data="img/octocat.svg" type="image/svg+xml" width="30" heigth="30"></object> kleiinnn</small>
+						<small><a href="https://mklein.co.at">Markus Klein</a>  /  <object data="img/octocat.svg" type="image/svg+xml" width="30" heigth="30"></object> kleiinnn <br>  <a>Christoph Hackenberger</a>  /  <object data="img/octocat.svg" type="image/svg+xml" width="30" heigth="30"></object> chackenberger</small>
 					</p>
+				</section>
+				<section>
+					<h2>Agenda</h2>
+					<ul>
+						<li>
+							JavaEnvironment:
+							<ul>
+								<li>JVM, GNU Classpath and Development Tools</li>
+								<li>Deploying Java programs on the Link</li>
+								<li>Integration into Link's build system</li>
+							</ul>						
+						</li>
+						<li>
+							Robot Library:
+							<ul>
+								<li>Design Approach</li>
+								<li>Features</li>
+								<li>Vision System</li>
+							</ul>
+						</li>
+					</ul>
 				</section>
 				<section>
 					<h2>What is LinkJVM</h2>
@@ -44,9 +65,79 @@
 						<li>Library for controlling the robot with Java</li>
 					</ul>
 					<p>
-						LinkJVM allows execution of programs written in Java and JVM language(Scala, JavaScript(Rhino), ...).
+						LinkJVM allows execution of programs written in Java a any JVM language(Scala, JavaScript(Rhino), ...).
 					</p>
 				</section>
+				<section class="dark" data-background="radial-gradient(rgba(85,90,95,1), rgba(28,30,32,1))">
+					<h1>Java Environment, Build System and Utils</h1>
+				</section>
+				<section>
+					<p>The Java environment includes to following components:</p>
+					<ul>
+						<li>Java Developing Tools (javac, jar, ...)</li>
+						<li>Java Virtual Machine (JVM)</li>
+						<li>Java SE implementation (GNU Classpath)</li>
+					</ul>
+				</section>
+				<section>
+					<h3>GNU Classpath</h3>
+					<p>GNU Classpath is a open source and lightweight implementation of the Java core classes (Java SE).</p>
+					<h3>JamVM (LinkJVM's JVM)</h3>
+					<p>JamVM is a very and simple JVM designed for low end systems. JamVM has already been used in CBCJVM (Java for the CBC.</p>
+					<h3>Development Tools</h3>
+					<p>LinkJVM provides also provides javac and jar for compiling and packaging java programs directly on the Link.</p>
+				</section>
+				<section>
+					<h2>Developing and deploying Java programs on the Link</h2>
+					<ul>
+						<li>There is no possibility for running java binaries directly over BotUI yet.</li>
+						<li>Therefore the java program must be wrapped by a c wrapper.</li>
+						<li>The Link needs a kiss archive (kar) to find the program.</li>
+					</ul>
+					<p>All these step require knowledge about linux, shell and the KIPR Link itself.
+					<p><strong>&rArr;Solution: LinkJVM-Uploader.</strong></p>
+				</section>
+				<section>
+					<h2>LinkJVM-Uploader</h2>
+					<p>LinkJVM-Uploader automatically wraps and uploads an runable jar file to the LinkJVM.</p>
+					<img src="img/linkjvm_uploader.jpg" width="700">	
+				</section>
+				<section>
+					<h2>Integrations into Link's build system</h2>	
+					<ul>
+						<li>Link runs a linux distribution and build framework called OpenEmbedded which has its own build system BitBake</li>
+						<li>In BitBake packages are described in recipes.</li>
+						<li>This recipe can extend another build system like CMake or Make.</li>
+						<li>LinkJVM uses CMake for compiling the Java and C++ part in combination with a recipe whcih extends CMake.</li>
+					</ul>
+				</section>
+				<section class="dark" data-background="radial-gradient(rgba(85,90,95,1), rgba(28,30,32,1))">
+					<h1>Robot Library</h1>	
+				</section>
+				<section>
+					<h2>Design Approach</h2>
+					<ul>
+						<li>LinkJVM's Robot Library wraps over libkovan using the Java Native Interface (JNI).</li>
+						<li>The wrapper classes (stored in the low package) are generated using SWIG (Simplified Wrapper and Interface Generator) and consist of a Java and a C++ part.</li>
+						<li>Using this approach new features in libkovan can be implemented very fast and easily</li>
+						<li>These jni classes are again wrapped by the high-level API to provided a good seperation between the Java and the JNI part</li>
+					</ul>
+				</section>
+				<section>
+					<h3>C++ wrapper</h3>		
+					<pre><code class="language-c++">
+							SWIGEXPORT jboolean JNICALL Java_linkjvm_low_linkjvm_1batteryJNI_Battery_1isCharging(JNIEnv *jenv, jclass jcls) {
+							  jboolean jresult = 0 ;
+							  bool result;
+							  
+							  (void)jenv;
+							  (void)jcls;
+							  result = (bool)Battery::isCharging();
+							  jresult = (jboolean)result;
+							  return jresult;
+							}
+					</code></pre>
+				</section>			
 				<section>
 					<h2>Design Approach</h2>
 					<img src="img/design_approach.svg" height="600">	
@@ -56,19 +147,24 @@
 					<img src="img/design_approach_example.svg" width="1000">
 				</section>
 				<section>
-					<h2>Developing Java programs on the Link</h2>
-					<p>
-						LinkJVM-Uploader automatically wraps and uploads an runable jar file to the LinkJVM.
-					</p>
-					<img src="img/linkjvm_uploader.jpg" width="700">	
+					<h2>Robot Library Features</h2>
+					<ul>
+						<li>iRobot Create</li>
+						<li>motors and servos</li>
+						<li>analog and digital sensors</li>
+						<li>hardware and software buttons</li>
+						<li>vision system</li>
+						<li>depth camera (experimental)</li>
+						<li>AR.Drone 1.0/2.0</li>
+					</ul>
 				</section>
 				<section>
 					<h2>Vision System</h2>
-					<p>
-						LinkJVM's vision system basically consists of 3 parts:
-					</p>
+					<p>LinkJVM's vision system basically consists of 3 parts:</p>
 					<ul>
-
+						<li><strong><code>ImageProcessor</code>:</strong> Processes the image to color or QR blobs and provides them as <code>CameraObject</code>s.</li>
+						<li><strong><code>CameraObject</code>:</strong> Represents an object tracked by an <code>ImageProcessor</code>.</li>
+						<li><strong><code>CameraConfig</code>:</strong> Contains several configuration attributes for an <code>ImageProcessor</code>.</li>
 					</ul>
 				</section>
 				<section>
@@ -97,6 +193,7 @@
 				center: true,
 				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
 				transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+				slideNumber: true,
 
 				// Parallax scrolling
 				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
